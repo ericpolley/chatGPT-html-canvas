@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        background-color: darkblue;
+      }
+      #canvas {
+        width: 100px;
+        height: 100px;
+        border: 1px solid black;
+        background-color: lightblue;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="100" height="100"></canvas>
+    <script>
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      // create a red circle
+      ctx.beginPath();
+      ctx.arc(50, 50, 5, 0, 2 * Math.PI);
+      ctx.fillStyle = "red";
+      ctx.fill();
+
+      let x = 50;
+      let y = 50;
+
+      // move the red circle by pressing the arrow keys
+      document.addEventListener("keydown", (event) => {
+        // prevent the red circle from moving outside the canvas
+        if (x - 5 < 0 || x + 5 > 100 || y - 5 < 0 || y + 5 > 100) {
+          return alert("ouch");
+        }
+
+        switch (event.key) {
+          case "ArrowUp":
+            y -= 1;
+            break;
+          case "ArrowDown":
+            y += 1;
+            break;
+          case "ArrowLeft":
+            x -= 1;
+            break;
+          case "ArrowRight":
+            x += 1;
+            break;
+        }
+
+        // clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // redraw the red circle at the new position
+        ctx.beginPath();
+        ctx.arc(x, y, 5, 0, 2 * Math.PI);
+        ctx.fillStyle = "red";
+        ctx.fill();
+      });
+    </script>
+  </body>
+</html>
